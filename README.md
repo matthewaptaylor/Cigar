@@ -1,3 +1,6 @@
+# Kiwio Agar
+This is a fork of Cigar that is used on my website, kiwio.ga, as it's main game. It is used in conjunction with MultiOgar-Edited.
+
 ![Protocol](https://img.shields.io/badge/protocol-5-orange.svg)
 
 # Cigar
