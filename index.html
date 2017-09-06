@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<meta content="Eat cells smaller than you and don't get eaten by the bigger ones, as an MMO" name="description">
+		<meta content="agario, agar, io, cell, cells, virus, bacteria, blob, game, games, web game, html5, fun, flash" name="keywords">
+		<meta content="index, follow" name="robots">
+		<meta content="minimal-ui, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		
+		<title>Kiwio</title>
+		
+		<link href="assets/img/favicon.ico" id="favicon" rel="icon" type="image/png">
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
+		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/css/index.css" rel="stylesheet">
+		<link href="/assets/fa/css/font-awesome.min.css">
+		
+		<script src="/assets/jquery-3.2.1.min.js"></script>
+		<script src="assets/js/log.js"></script>
+		<script src="assets/js/vector.js"></script>
+		<script src="assets/js/main_out.js"></script>
+		<script>
+			skinpath = "";
+		</script>
+	</head>
+	<body>
+		<div class="modal fade" id="inPageModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="inPageModalTitle">Failed to Load</h4>
+						<button class="close" data-dismiss="modal" type="button">&times;</button>
+					</div>
+					<div class="modal-body" id="inPageModalBody">
+						<p>Failed to load. Please check your connection!</p>
+						<div class="center">
+							<div class="loader"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="overlays">
+			<div id="helloDialog">
+				<form role="form">
+					<div class="row">
+						<div class="col-8">
+							<h2 class="display-4 align-top d-inline text-success" style="line-height:102px;user-select:none;cursor:default;">Kiwio</h2>
+						</div>
+						<div class="col-4">
+							<div class="form-group">
+								<img src="/assets/img/logo.png" id="logo" style="user-select:none;" class="img-fluid rounded-circle">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<label for="nick">Nickname</label>
+								<input type="text" class="form-control" id="nick" placeholder="A Random Kiwi">
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group text-right">
+								<label for="gamemode">Server</label>
+								<select class="form-control" id="gamemode" onchange="setserver($(this).val());">
+									<option selected value="//nagar.eu/ncoms1501/">FFA</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<a href="?#" class="btn btn-block btn-outline-success" data-target="#inPageModal" data-toggle="modal" onclick="openSkinsList();" role="button">Skins</a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group" id="mainform">
+								<button class="btn btn-block btn-warning btn-spectate btn-needs-server" id="spectate-btn" onclick="spectate(); return false;">Spectate</button><br clear="both">
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<button class="btn btn-block btn-play btn-primary btn-needs-server" id="play-btn" onclick="setNick('<'+skinpath+'>'+document.getElementById('nick').value); return false;">Play</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6 text-center">
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="1" onchange="setSkins(!$(this).is(':checked'));" type="checkbox"> No skins</label></div>
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="2" onchange="setNames(!$(this).is(':checked'));" type="checkbox"> No names</label></div>
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="3" onchange="setDarkTheme($(this).is(':checked'));" type="checkbox"> Dark Theme</label></div>
+						</div>
+						<div class="col-6 text-center">
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="4" onchange="setColors($(this).is(':checked'));" type="checkbox"> No colors</label></div>
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="5" onchange="setShowMass($(this).is(':checked'));" type="checkbox"> Show mass</label></div>
+							<div class="form-check"><label><input class="form-check-input save" data-box-id="6" onchange="setSmooth($(this).is(':checked'));" type="checkbox"> Smooth Render</label></div>
+						</div>
+					</div>
+					<div class="form-check text-center"><label><input class="form-check-input save" data-box-id="7" onchange="setChatHide($(this).is(':checked'));" type="checkbox"> Hide Chat</label></div>
+				</form>
+			</div>
+		</div>
+		<div id="connecting">
+			<div class="text-center" style="width: 350px; background-color: #FFFFFF; margin: 100px auto; border-radius: 15px; padding: 5px 15px 5px 15px;">
+				<br>
+				<h2>Connecting</h2>
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:100%"></div>
+				</div>
+				<br>
+			</div>
+		</div>
+		<canvas height="600" id="canvas" width="800"></canvas>
+		<form>
+			<input id="chat_textbox" maxlength="200" placeholder="Press enter to chat!" type="text">
+		</form>
+		<div style="font-family:'Ubuntu'">
+			&nbsp;
+		</div>
+		<script src="/assets/popper.min.js"></script> 
+		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
